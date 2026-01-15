@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Pongal</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9500 0%, #ff6b00 50%, #ffa500 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .sun {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #ffeb3b 0%, #ffa500 70%);
+            border-radius: 50%;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+            opacity: 0.6;
+            box-shadow: 0 0 100px rgba(255, 235, 59, 0.5);
+        }
+
+        .sun-ray {
+            position: absolute;
+            width: 60px;
+            height: 10px;
+            background: #ffeb3b;
+            border-radius: 5px;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 50%;
+            opacity: 0.7;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .title {
+            font-size: 72px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #fff;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 1s ease-out;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f7b731, #5f27cd);
+            background-size: 200% 100%;
+            animation: rainbow 3s linear infinite;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        }
+
+        .decorations {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sugarcane {
+            position: absolute;
+            width: 80px;
+            height: 200px;
+            background: linear-gradient(180deg, #7cb342 0%, #558b2f 100%);
+            border-radius: 10px;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        .sugarcane.left {
+            left: 5%;
+            top: 20%;
+            transform: rotate(-10deg);
+        }
+
+        .sugarcane.right {
+            right: 5%;
+            top: 20%;
+            transform: rotate(10deg);
+            animation-delay: 1s;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 60px;
+            height: 15px;
+            background: #7cb342;
+            border-radius: 50%;
+            transform-origin: 0 50%;
+        }
+
+        .lamp {
+            position: absolute;
+            bottom: 10%;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ffeb3b 0%, #ff9800 100%);
+            border-radius: 50%;
+            animation: flicker 2s infinite;
+        }
+
+        .lamp.left {
+            left: 15%;
+        }
+
+        .lamp.right {
+            right: 15%;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-radius: 15px;
+            border: 3px solid #ff9800;
+        }
+
+        .message h2 {
+            color: #e65100;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .message p {
+            color: #bf360c;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .emoji {
+            font-size: 40px;
+            margin: 0 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; box-shadow: 0 0 20px #ffeb3b; }
+            50% { opacity: 0.7; box-shadow: 0 0 10px #ffeb3b; }
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+            
+            model-viewer {
+                height: 350px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+
+            .sugarcane {
+                width: 50px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sun">
+        <div class="sun-ray" style="transform: rotate(0deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(45deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(90deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(135deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(180deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(225deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(270deg) translateX(150px);"></div>
+        <div class="sun-ray" style="transform: rotate(315deg) translateX(150px);"></div>
+    </div>
+
+    <div class="decorations">
+        <div class="sugarcane left">
+            <div class="leaf" style="top: 10px; left: -20px; transform: rotate(-30deg);"></div>
+            <div class="leaf" style="top: 30px; left: -25px; transform: rotate(-40deg);"></div>
+            <div class="leaf" style="top: 50px; right: -20px; transform: rotate(30deg);"></div>
+        </div>
+        <div class="sugarcane right">
+            <div class="leaf" style="top: 20px; right: -20px; transform: rotate(30deg);"></div>
+            <div class="leaf" style="top: 40px; right: -25px; transform: rotate(40deg);"></div>
+            <div class="leaf" style="top: 60px; left: -20px; transform: rotate(-30deg);"></div>
+        </div>
+        <div class="lamp left"></div>
+        <div class="lamp right"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">HAPPY PONGAL</h1>
+            <p class="subtitle">Wishing you a very happy and prosperous Pongal!</p>
+        </div>
+
+        <div class="card">
+            <div style="position: relative;">
+                <img src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg" alt="Pongal Celebration" style="width: 100%; height: 500px; object-fit: cover; border-radius: 20px; display: block;">
+                
+                <model-viewer 
+                    src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/pongal_setup_with_super_cane_rigged.glb" 
+                    ar 
+                    ar-modes="webxr scene-viewer quick-look"
+                    environment-image="shared-assets/environments/moon_1k.hdr" 
+                    poster="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg" 
+                    shadow-intensity="1" 
+                    camera-controls 
+                    touch-action="pan-y"
+                    style="display: none; width: 100%; height: 500px; border-radius: 20px;">
+                    <button slot="ar-button" id="arButton" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-weight: bold; z-index: 10;">
+                        🎉 Have a Pongal
+                    </button>
+                </model-viewer>
+
+                <button id="mainButton" onclick="activatePongal()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 20px 40px; font-size: 22px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 8px 20px rgba(0,0,0,0.4); font-weight: bold; z-index: 10; transition: all 0.3s ease;">
+                    🎉 Have a Pongal
+                </button>
+            </div>
+
+            <script>
+                function activatePongal() {
+                    const img = document.querySelector('.card img');
+                    const modelViewer = document.querySelector('model-viewer');
+                    const mainButton = document.getElementById('mainButton');
+                    
+                    img.style.display = 'none';
+                    modelViewer.style.display = 'block';
+                    mainButton.style.display = 'none';
+                }
+
+                // Hover effect
+                const mainButton = document.getElementById('mainButton');
+                mainButton.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-50%) scale(1.1)';
+                });
+                mainButton.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(-50%) scale(1)';
+                });
+            </script>
+
+            <div class="message">
+                <h2>
+                    <span class="emoji">🌾</span>
+                    May this harvest festival bring joy and prosperity
+                    <span class="emoji">🎉</span>
+                </h2>
+                <p>
+                    May the sun radiate peace, prosperity, and happiness in your life. 
+                    May this Pongal bring new opportunities and success to you and your loved ones.
+                    Pongalo Pongal! 
+                    <span class="emoji">🙏</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
