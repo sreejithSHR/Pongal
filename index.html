@@ -1,118 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Happy Pongal AR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Pongal</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#ff9800,#ff6a00);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+        .card-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
 
-.container {
-    width: 90%;
-    max-width: 900px;
-    text-align: center;
-}
+        .card-header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-h1 {
-    font-size: 60px;
-    color: #fff;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-}
+        .card-header::before {
+            content: '🌾';
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.1;
+            top: -20px;
+            left: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
 
-model-viewer {
-    width: 100%;
-    height: 450px;
-    background: #eee;
-    border-radius: 20px;
-}
+        .card-header::after {
+            content: '🌾';
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.1;
+            bottom: -20px;
+            right: 20px;
+            animation: float 3s ease-in-out infinite reverse;
+        }
 
-#arButton {
-    margin-top: -70px; /* overlay center of model */
-    z-index: 10;
-    position: relative;
-    padding: 18px 34px;
-    font-size: 22px;
-    color: white;
-    background: linear-gradient(135deg,#ff4d4d,#ff9800);
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    transition: 0.3s;
-}
+        h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-#arButton:hover {
-    transform: scale(1.08);
-}
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            font-style: italic;
+        }
 
-.message {
-    margin-top: 30px;
-    padding: 15px;
-    background: #fff3e0;
-    border-radius: 10px;
-    border: 2px solid #ff9800;
-    font-size: 17px;
-}
+        .model-section {
+            padding: 40px;
+            background: #fafafa;
+        }
 
-footer {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #fff;
-}
-</style>
+        model-viewer {
+            width: 100%;
+            height: 500px;
+            background-color: transparent;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls-info {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .controls-info span {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .message-section {
+            padding: 40px;
+            text-align: center;
+            background: white;
+        }
+
+        .message-section h2 {
+            color: #ff6b35;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .message-section p {
+            color: #333;
+            font-size: 1.1em;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .decorative-elements {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #138808 0%, #25a244 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            model-viewer {
+                height: 350px;
+            }
+
+            .card-header, .model-section, .message-section {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="card-container">
+        <div class="card-header">
+            <h1>🎉 Happy Pongal! 🎉</h1>
+            <p class="subtitle">Thai Pirandhal Vazhi Pirakkum</p>
+        </div>
 
-<div class="container">
+        <div class="model-section">
+            <model-viewer
+                src="https://raw.githubusercontent.com/sreejithSHR/solanki-assets/main/pongal_setup_with_super_cane_rigged.glb"
+                poster="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg"
+                alt="Pongal 3D Model"
+                shadow-intensity="1"
+                camera-controls
+                auto-rotate
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                environment-image="neutral"
+                exposure="1.2"
+                shadow-softness="0.5">
+                
+                <button slot="ar-button" style="background-color: #ff6b35; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; position: absolute; bottom: 20px; right: 20px;">
+                    View in AR 📱
+                </button>
+            </model-viewer>
 
-    <h1>HAPPY PONGAL</h1>
+            <div class="controls-info">
+                <span>🖱️ Click & Drag to Rotate</span>
+                <span>🔍 Scroll to Zoom</span>
+                <span>📱 Click "View in AR" for AR Experience</span>
+            </div>
+        </div>
 
-    <model-viewer 
-        id="modelViewer"
-        src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/pongal_setup_with_super_cane_rigged.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        poster="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg"
-        environment-image="shared-assets/environments/moon_1k.hdr"
-        shadow-intensity="1"
-        camera-controls
-        auto-rotate>
-    </model-viewer>
+        <div class="message-section">
+            <div class="decorative-elements">🌾 ☀️ 🥘 🐄 🌾</div>
+            
+            <h2>Pongalo Pongal!</h2>
+            
+            <p>
+                May this harvest festival bring abundant joy, prosperity, and happiness to you and your family. 
+                As the sun marks the beginning of Uttarayan, may your life be filled with warmth, success, and new beginnings.
+            </p>
+            
+            <p>
+                Wishing you a year full of health, wealth, and wonderful memories. 
+                Let the sweetness of the Pongal overflow into every aspect of your life!
+            </p>
+            
+            <div class="decorative-elements">🎊 ✨ 🙏 ✨ 🎊</div>
+        </div>
 
-    <button id="arButton">🎉 View in AR</button>
-
-    <div class="message">
-        🌾 May the harvest festival bring joy and prosperity! 🌞<br>
-        ❤️ Pongalo Pongal 🙏
+        <div class="footer">
+            <p><strong>Wishing you and your loved ones a blessed Pongal!</strong></p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.9;">வாழ்த்துக்கள் | Best Wishes</p>
+        </div>
     </div>
-
-</div>
-
-<footer>
-    Developed by <strong>Envidox Solutions</strong><br>
-    envidoxsolutions.com
-</footer>
-
-<script>
-const button = document.getElementById("arButton");
-const viewer = document.getElementById("modelViewer");
-
-button.addEventListener("click", () => {
-    viewer.activateAR();
-});
-</script>
-
 </body>
 </html>
