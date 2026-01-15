@@ -2,75 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Pongal AR</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Pongal AR</title>
 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 
 <style>
 body {
-    margin:0;
+    margin: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg,#ff9800,#ff6a00);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    max-width:900px;
-    width:90%;
-    background:white;
-    border-radius:30px;
-    padding:30px;
-    box-shadow:0 30px 60px rgba(0,0,0,0.4);
-    text-align:center;
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
 }
 
 h1 {
-    font-size:60px;
-    color:#ff6a00;
-    letter-spacing:6px;
-    margin-bottom:10px;
-}
-
-.subtitle {
-    color:#555;
-    margin-bottom:20px;
+    font-size: 60px;
+    color: #fff;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
 }
 
 model-viewer {
-    width:100%;
-    height:450px;
-    border-radius:20px;
-    background: linear-gradient(135deg,#ffe082,#ffca28);
+    width: 100%;
+    height: 450px;
+    background: #eee;
+    border-radius: 20px;
 }
 
-button {
-    margin-top:20px;
-    padding:18px 40px;
-    font-size:22px;
-    border:none;
-    border-radius:50px;
-    background:linear-gradient(135deg,#ff4d4d,#ff9800);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    transition:0.3s;
+#arButton {
+    margin-top: -70px; /* overlay center of model */
+    z-index: 10;
+    position: relative;
+    padding: 18px 34px;
+    font-size: 22px;
+    color: white;
+    background: linear-gradient(135deg,#ff4d4d,#ff9800);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: 0.3s;
 }
 
-button:hover {
-    transform:scale(1.1);
+#arButton:hover {
+    transform: scale(1.08);
 }
 
 .message {
-    margin-top:25px;
-    padding:20px;
-    border-radius:15px;
-    background:#fff3e0;
-    border:3px solid #ff9800;
+    margin-top: 30px;
+    padding: 15px;
+    background: #fff3e0;
+    border-radius: 10px;
+    border: 2px solid #ff9800;
+    font-size: 17px;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #fff;
 }
 </style>
 </head>
@@ -78,44 +76,41 @@ button:hover {
 <body>
 
 <div class="container">
-    <h1>HAPPY PONGAL</h1>
-    <p class="subtitle">Wishing you joy, harvest and prosperity 🌾</p>
 
-    <!-- Visible Model Viewer -->
+    <h1>HAPPY PONGAL</h1>
+
     <model-viewer 
         id="modelViewer"
         src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/pongal_setup_with_super_cane_rigged.glb"
         ar
         ar-modes="webxr scene-viewer quick-look"
-        environment-image="shared-assets/environments/moon_1k.hdr"
         poster="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg"
+        environment-image="shared-assets/environments/moon_1k.hdr"
         shadow-intensity="1"
         camera-controls
-        touch-action="pan-y"
         auto-rotate>
     </model-viewer>
 
     <button id="arButton">🎉 View in AR</button>
 
     <div class="message">
-        <h2>🌞 Pongalo Pongal 🌞</h2>
-        <p>
-            May the Sun bless you with abundance, peace and happiness.<br>
-            May this Pongal bring new beginnings to your life 🙏
-        </p>
+        🌾 May the harvest festival bring joy and prosperity! 🌞<br>
+        ❤️ Pongalo Pongal 🙏
     </div>
+
 </div>
 
+<footer>
+    Developed by <strong>Envidox Solutions</strong><br>
+    envidoxsolutions.com
+</footer>
+
 <script>
-const btn = document.getElementById("arButton");
+const button = document.getElementById("arButton");
 const viewer = document.getElementById("modelViewer");
 
-btn.addEventListener("click", () => {
-    if (viewer.canActivateAR) {
-        viewer.activateAR();
-    } else {
-        alert("AR not supported. Open this on Android Chrome or iPhone Safari.");
-    }
+button.addEventListener("click", () => {
+    viewer.activateAR();
 });
 </script>
 
