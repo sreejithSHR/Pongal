@@ -280,9 +280,10 @@
 
         <div class="card">
             <div style="position: relative;">
-                <img src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg" alt="Pongal Celebration" style="width: 100%; height: 500px; object-fit: cover; border-radius: 20px; display: block;">
+                <img id="posterImage" src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg" alt="Pongal Celebration" style="width: 100%; height: 500px; object-fit: cover; border-radius: 20px; display: block;">
                 
                 <model-viewer 
+                    id="modelViewer"
                     src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/pongal_setup_with_super_cane_rigged.glb" 
                     ar 
                     ar-modes="webxr scene-viewer quick-look"
@@ -291,8 +292,10 @@
                     shadow-intensity="1" 
                     camera-controls 
                     touch-action="pan-y"
-                    style="display: none; width: 100%; height: 500px; border-radius: 20px;">
-                    <button slot="ar-button" id="arButton" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-weight: bold; z-index: 10;">
+                    auto-rotate
+                    rotation-per-second="30deg"
+                    style="display: none; width: 100%; height: 500px; border-radius: 20px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);">
+                    <button slot="ar-button" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-weight: bold; z-index: 10;">
                         🎉 Have a Pongal
                     </button>
                 </model-viewer>
@@ -304,23 +307,24 @@
 
             <script>
                 function activatePongal() {
-                    const img = document.querySelector('.card img');
-                    const modelViewer = document.querySelector('model-viewer');
-                    const mainButton = document.getElementById('mainButton');
+                    const modelViewer = document.getElementById('modelViewer');
                     
-                    img.style.display = 'none';
-                    modelViewer.style.display = 'block';
-                    mainButton.style.display = 'none';
+                    // Trigger AR mode directly
+                    if (modelViewer) {
+                        modelViewer.activateAR();
+                    }
                 }
 
                 // Hover effect
                 const mainButton = document.getElementById('mainButton');
-                mainButton.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(-50%) scale(1.1)';
-                });
-                mainButton.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateX(-50%) scale(1)';
-                });
+                if (mainButton) {
+                    mainButton.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateX(-50%) scale(1.1)';
+                    });
+                    mainButton.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateX(-50%) scale(1)';
+                    });
+                }
             </script>
 
             <div class="message">
@@ -330,13 +334,22 @@
                     <span class="emoji">🎉</span>
                 </h2>
                 <p>
-                    May the sun radiate peace, prosperity, and happiness in your life. 
-                    May this Pongal bring new opportunities and success to you and your loved ones.
+                    May the sun radiate peace, prosperity, and happiness in your life.<br>
+                    May this Pongal bring new opportunities and success to you and your loved ones.<br>
                     Pongalo Pongal! 
                     <span class="emoji">🙏</span>
                 </p>
             </div>
         </div>
+
+        <footer style="text-align: center; margin-top: 30px; padding: 20px; color: white; font-size: 14px;">
+            <p style="margin: 0; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);">
+                Developed by <strong>Envidox Solutions</strong><br>
+                <a href="https://envidoxsolutions.com" target="_blank" style="color: #fff; text-decoration: none; border-bottom: 2px solid #fff; transition: all 0.3s;">
+                    envidoxsolutions.com
+                </a>
+            </p>
+        </footer>
     </div>
 </body>
 </html>
