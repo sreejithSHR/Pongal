@@ -294,37 +294,33 @@
                     touch-action="pan-y"
                     auto-rotate
                     rotation-per-second="30deg"
-                    style="display: none; width: 100%; height: 500px; border-radius: 20px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);">
-                    <button slot="ar-button" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-weight: bold; z-index: 10;">
-                        🎉 Have a Pongal
-                    </button>
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 500px; border-radius: 20px; background: transparent; opacity: 0; pointer-events: none;">
                 </model-viewer>
 
-                <button id="mainButton" onclick="activatePongal()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 20px 40px; font-size: 22px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 8px 20px rgba(0,0,0,0.4); font-weight: bold; z-index: 10; transition: all 0.3s ease;">
+                <button id="mainButton" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; border: none; padding: 20px 40px; font-size: 22px; border-radius: 50px; cursor: pointer; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); box-shadow: 0 8px 20px rgba(0,0,0,0.4); font-weight: bold; z-index: 10; transition: all 0.3s ease;">
                     🎉 Have a Pongal
                 </button>
             </div>
 
             <script>
-                function activatePongal() {
-                    const modelViewer = document.getElementById('modelViewer');
-                    
-                    // Trigger AR mode directly
-                    if (modelViewer) {
+                const mainButton = document.getElementById('mainButton');
+                const modelViewer = document.getElementById('modelViewer');
+
+                mainButton.addEventListener('click', function() {
+                    if (modelViewer && modelViewer.canActivateAR) {
                         modelViewer.activateAR();
+                    } else {
+                        alert('AR is not supported on this device. Please use an AR-capable mobile device (iOS with ARKit or Android with ARCore).');
                     }
-                }
+                });
 
                 // Hover effect
-                const mainButton = document.getElementById('mainButton');
-                if (mainButton) {
-                    mainButton.addEventListener('mouseenter', function() {
-                        this.style.transform = 'translateX(-50%) scale(1.1)';
-                    });
-                    mainButton.addEventListener('mouseleave', function() {
-                        this.style.transform = 'translateX(-50%) scale(1)';
-                    });
-                }
+                mainButton.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-50%) scale(1.1)';
+                });
+                mainButton.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(-50%) scale(1)';
+                });
             </script>
 
             <div class="message">
