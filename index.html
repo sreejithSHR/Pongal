@@ -8,7 +8,7 @@
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 
 <style>
-body{
+body {
     margin:0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg,#ff9800,#ff6a00);
@@ -18,7 +18,7 @@ body{
     min-height:100vh;
 }
 
-.container{
+.container {
     max-width:900px;
     width:90%;
     background:white;
@@ -26,38 +26,29 @@ body{
     padding:30px;
     box-shadow:0 30px 60px rgba(0,0,0,0.4);
     text-align:center;
-    position:relative;
 }
 
-h1{
-    font-size:64px;
+h1 {
+    font-size:60px;
     color:#ff6a00;
     letter-spacing:6px;
-    margin:0;
+    margin-bottom:10px;
 }
 
-.subtitle{
-    margin-top:10px;
+.subtitle {
     color:#555;
+    margin-bottom:20px;
 }
 
-.poster{
-    margin-top:30px;
-    position:relative;
-}
-
-.poster img{
+model-viewer {
     width:100%;
     height:450px;
-    object-fit:cover;
     border-radius:20px;
+    background: linear-gradient(135deg,#ffe082,#ffca28);
 }
 
-button{
-    position:absolute;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
+button {
+    margin-top:20px;
     padding:18px 40px;
     font-size:22px;
     border:none;
@@ -70,22 +61,16 @@ button{
     transition:0.3s;
 }
 
-button:hover{
-    transform:translateX(-50%) scale(1.1);
+button:hover {
+    transform:scale(1.1);
 }
 
-.message{
-    margin-top:30px;
+.message {
+    margin-top:25px;
     padding:20px;
     border-radius:15px;
     background:#fff3e0;
     border:3px solid #ff9800;
-}
-
-footer{
-    margin-top:20px;
-    color:#777;
-    font-size:14px;
 }
 </style>
 </head>
@@ -93,55 +78,43 @@ footer{
 <body>
 
 <div class="container">
+    <h1>HAPPY PONGAL</h1>
+    <p class="subtitle">Wishing you joy, harvest and prosperity 🌾</p>
 
-<h1>HAPPY PONGAL</h1>
-<p class="subtitle">Wishing you a joyful and prosperous harvest festival 🌾</p>
+    <!-- Visible Model Viewer -->
+    <model-viewer 
+        id="modelViewer"
+        src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/pongal_setup_with_super_cane_rigged.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        environment-image="shared-assets/environments/moon_1k.hdr"
+        poster="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg"
+        shadow-intensity="1"
+        camera-controls
+        touch-action="pan-y"
+        auto-rotate>
+    </model-viewer>
 
-<div class="poster">
-    <img src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg">
-    <button id="arButton">🎉 Have a Pongal</button>
-</div>
+    <button id="arButton">🎉 View in AR</button>
 
-<!-- Hidden Model Viewer (only used to launch AR) -->
-<model-viewer
-    id="modelViewer"
-    src="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/pongal_setup_with_super_cane_rigged.glb"
-    ar
-    ar-modes="webxr scene-viewer quick-look"
-    environment-image="shared-assets/environments/moon_1k.hdr"
-    poster="https://cdn.jsdelivr.net/gh/sreejithSHR/solanki-assets@main/istockphoto-2101090457-612x612.jpg"
-    shadow-intensity="1"
-    camera-controls
-    touch-action="pan-y"
-    style="width:0;height:0;visibility:hidden;">
-</model-viewer>
-
-<div class="message">
-    <h2>🌞 Pongalo Pongal 🌞</h2>
-    <p>
-        May this harvest bring prosperity, peace and happiness to your home.<br>
-        May the Sun bless you with success and abundance 🌾🙏
-    </p>
-</div>
-
-<footer>
-    Developed by <b>Envidox Solutions</b><br>
-    envidoxsolutions.com
-</footer>
-
+    <div class="message">
+        <h2>🌞 Pongalo Pongal 🌞</h2>
+        <p>
+            May the Sun bless you with abundance, peace and happiness.<br>
+            May this Pongal bring new beginnings to your life 🙏
+        </p>
+    </div>
 </div>
 
 <script>
 const btn = document.getElementById("arButton");
 const viewer = document.getElementById("modelViewer");
 
-btn.addEventListener("click", async () => {
-    await viewer.updateComplete;
-
+btn.addEventListener("click", () => {
     if (viewer.canActivateAR) {
         viewer.activateAR();
     } else {
-        alert("Please open this page on an AR-supported mobile device (Android or iPhone).");
+        alert("AR not supported. Open this on Android Chrome or iPhone Safari.");
     }
 });
 </script>
